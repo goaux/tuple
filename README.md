@@ -1,6 +1,9 @@
 # tuple
 Package tuple provides extremely simple generic tuple types and utility functions for creating tuples.
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/goaux/tuple.svg)](https://pkg.go.dev/github.com/goaux/tuple)
+[![Go Report Card](https://goreportcard.com/badge/github.com/goaux/tuple)](https://goreportcard.com/report/github.com/goaux/tuple)
+
 ## Usage Example
 
 Here's an example of how you might use the tuple package for managing multiple
