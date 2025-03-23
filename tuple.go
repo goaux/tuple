@@ -43,6 +43,11 @@ func (v Pair[_, _]) Get(i int) any {
 	return nil
 }
 
+// Unpack returns the elements of the pair as a tuple.
+func (v Pair[T0, T1]) Unpack() (T0, T1) {
+	return v.First, v.Second
+}
+
 // Triple is a generic type for a triple of values.
 type Triple[T0, T1, T2 any] struct {
 	First  T0
@@ -75,6 +80,11 @@ func (t Triple[_, _, _]) Get(i int) any {
 		return t.Third
 	}
 	return nil
+}
+
+// Unpack returns the elements of the triple as a tuple.
+func (v Triple[T0, T1, T2]) Unpack() (T0, T1, T2) {
+	return v.First, v.Second, v.Third
 }
 
 // Quadruple is a generic type for a quadruple of values.
@@ -112,6 +122,11 @@ func (q Quadruple[_, _, _, _]) Get(i int) any {
 		return q.Fourth
 	}
 	return nil
+}
+
+// Unpack returns the elements of the quadruple as a tuple.
+func (v Quadruple[T0, T1, T2, T3]) Unpack() (T0, T1, T2, T3) {
+	return v.First, v.Second, v.Third, v.Fourth
 }
 
 // Quintuple is a generic type for a quintuple of values.
@@ -152,4 +167,9 @@ func (q Quintuple[_, _, _, _, _]) Get(i int) any {
 		return q.Fifth
 	}
 	return nil
+}
+
+// Unpack returns the elements of the quintuple as a tuple.
+func (v Quintuple[T0, T1, T2, T3, T4]) Unpack() (T0, T1, T2, T3, T4) {
+	return v.First, v.Second, v.Third, v.Fourth, v.Fifth
 }
