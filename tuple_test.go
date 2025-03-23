@@ -84,6 +84,27 @@ func TestPair(t *testing.T) {
 			t.Errorf("Out of bounds element should be a zero value, got %v", v)
 		}
 	})
+
+	t.Run("Unpack", func(t *testing.T) {
+		pair := tuple.MakePair(10, "hello")
+		first, second := pair.Unpack()
+		if first != 10 {
+			t.Errorf("expected first element to be 10, got %v", first)
+		}
+		if second != "hello" {
+			t.Errorf("expected second element to be \"hello\", got %v", second)
+		}
+
+		// Test with different types
+		pair2 := tuple.MakePair(3.14, true)
+		first2, second2 := pair2.Unpack()
+		if first2 != 3.14 {
+			t.Errorf("expected first element to be 3.14, got %v", first2)
+		}
+		if second2 != true {
+			t.Errorf("expected second element to be true, got %v", second2)
+		}
+	})
 }
 
 func TestTriple(t *testing.T) {
@@ -140,6 +161,20 @@ func TestTriple(t *testing.T) {
 		}
 		if v, ok := triple.Get(3).(int); v != 0 || ok {
 			t.Errorf("Out of bounds element should be a zero value, got %v", v)
+		}
+	})
+
+	t.Run("Triple_Unpack", func(t *testing.T) {
+		triple := tuple.MakeTriple(1, "hello", 3.14)
+		first, second, third := triple.Unpack()
+		if first != 1 {
+			t.Errorf("expected first element to be 1, got %v", first)
+		}
+		if second != "hello" {
+			t.Errorf("expected second element to be \"hello\", got %v", second)
+		}
+		if third != 3.14 {
+			t.Errorf("expected third element to be 3.14, got %v", third)
 		}
 	})
 }
@@ -210,6 +245,23 @@ func TestQuadruple(t *testing.T) {
 		}
 		if v, ok := quadruple.Get(4).(int); v != 0 || ok {
 			t.Errorf("Out of bounds element should be a zero value, got %v", v)
+		}
+	})
+
+	t.Run("Quadruple_Unpack", func(t *testing.T) {
+		quadruple := tuple.MakeQuadruple(1, "hello", 3.14, true)
+		first, second, third, fourth := quadruple.Unpack()
+		if first != 1 {
+			t.Errorf("expected first element to be 1, got %v", first)
+		}
+		if second != "hello" {
+			t.Errorf("expected second element to be \"hello\", got %v", second)
+		}
+		if third != 3.14 {
+			t.Errorf("expected third element to be 3.14, got %v", third)
+		}
+		if fourth != true {
+			t.Errorf("expected fourth element to be true, got %v", fourth)
 		}
 	})
 }
@@ -292,6 +344,26 @@ func TestQuintuple(t *testing.T) {
 		}
 		if v, ok := quintuple.Get(5).(int); v != 0 || ok {
 			t.Errorf("Out of bounds element should be a zero value, got %v", v)
+		}
+	})
+
+	t.Run("Quintuple_Unpack", func(t *testing.T) {
+		quintuple := tuple.MakeQuintuple(1, "hello", 3.14, true, 'a')
+		first, second, third, fourth, fifth := quintuple.Unpack()
+		if first != 1 {
+			t.Errorf("expected first element to be 1, got %v", first)
+		}
+		if second != "hello" {
+			t.Errorf("expected second element to be \"hello\", got %v", second)
+		}
+		if third != 3.14 {
+			t.Errorf("expected third element to be 3.14, got %v", third)
+		}
+		if fourth != true {
+			t.Errorf("expected fourth element to be true, got %v", fourth)
+		}
+		if fifth != 'a' {
+			t.Errorf("expected fifth element to be 'a', got %v", fifth)
 		}
 	})
 }
