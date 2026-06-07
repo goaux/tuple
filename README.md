@@ -1,110 +1,92 @@
-> [!NOTE]
-> [README for v1](README.v1.md)
+# tuple
+Package tuple provides extremely simple generic tuple types and utility functions for creating tuples.
 
-# goaux/tuple v2
+[![Go Reference](https://pkg.go.dev/badge/github.com/goaux/tuple.svg)](https://pkg.go.dev/github.com/goaux/tuple)
+[![Go Report Card](https://goreportcard.com/badge/github.com/goaux/tuple)](https://goreportcard.com/report/github.com/goaux/tuple)
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/goaux/tuple/v2.svg)](https://pkg.go.dev/github.com/goaux/tuple/v2)
-<!-- [![Go Report Card](https://goreportcard.com/badge/github.com/goaux/tuple/v2)](https://goreportcard.com/report/github.com/goaux/tuple/v2) -->
+## Usage Example
 
-A tiny, compile‑time‑safe library that gives you a **generic tuple** type for every size from 2 up to 32 values.
-The package is split into a separate sub‑package per tuple length so you only import what you need – no unnecessary dependencies or large monolithic packages.
+Here's an example of how you might use the tuple package for managing multiple
+return values from functions:
 
-All source files are produced by `gen-tuple`.
+### Handling Multiple Return Values
 
-## Features
-
-| Length | Package name | What it provides |
-|--------|--------------|------------------|
-| 2      | `tuple2`     | `Tuple[A, B]` – two values |
-| 3      | `tuple3`     | `Tuple[A, B, C]` – three values |
-| 4      | `tuple4`     | … |
-| …      | …            | … |
-| 31     | `tuple31`    | `Tuple[...AE]` – thirty-one values |
-| 32     | `tuple32`    | `Tuple[...AE, AF]` – thirty-two values |
-
-Each package contains:
-
-```go
-// Pack creates a new tuple with the supplied values.
-func Pack[A, B, …](a A, b B, …) Tuple[A, B, …]
-
-// Unpack returns all elements of the tuple.
-func (t Tuple[A, B, …]) Unpack() (A, B, …)
-```
-
-The types are fully generic – no type assertions or `interface{}` needed.
-They work with any Go value, including structs, interfaces, pointers, etc.
-
-## Installation
-
-```bash
-go get github.com/goaux/tuple/v2@latest
-```
-
-Because every tuple size lives in its own package you can import only the one(s) you need:
-
-```go
-import (
-    "github.com/goaux/tuple/v2/tuple3"
-    "github.com/goaux/tuple/v2/tuple5"
-)
-```
-
-## Example
+Consider a scenario where you have a function that returns two integers and
+another function that accepts a string and a pair of integers.
 
 ```go
 package main
 
 import (
-    "fmt"
+	"fmt"
 
-    "github.com/goaux/tuple/v2/tuple3"
+	"github.com/goaux/tuple"
 )
 
-func main() {
-    t := tuple3.Pack(42, "answer", true)
+// GetXY is an example function returning a pair of values.
+func GetXY() (x, y int) {
+	return 12, 34
+}
 
-    a, b, c := t.Unpack()
-    fmt.Println(a, b, c) // 42 answer true
+// PrintXY is an example function accepting a string and a pair of ints.
+func PrintXY(tag string, x, y int) {
+	fmt.Printf("%s: X=%d Y=%d\n", tag, x, y)
+}
+
+// PrintXYPair is an example function wraps PrintXY with accepting a string and a Pair[int, int].
+func PrintXYPair(tag string, xy tuple.Pair[int, int]) {
+	PrintXY(tag, xy.First, xy.Second)
+}
+
+func main() {
+	// Cannot write PrintXY("here", GetXY()) directly.
+	x, y := GetXY()
+	PrintXY("here", x, y)
+
+	// Using tuple eliminates the need for intermediate variables.
+	PrintXYPair("here", tuple.MakePair(GetXY()))
 }
 ```
 
-## Build Constraints
+## Tuples Types
 
-This module uses Go build constraints to allow you to selectively include or exclude certain features (Comparison and Getter methods) during compilation. This is useful for reducing binary size or simplifying the API surface in specific use cases.
+### Pair[T0, T1]
 
-### Available Build Tags
+Represents a pair of values.
 
-#### 1. Comparison Methods (`Compare`)
-By default, `Compare` methods are included. If you want to exclude them globally, use the `notuplecompare` tag. If you need to explicitly re-enable them for a specific package after excluding them, use the corresponding package-specific tag.
+- `First` holds the first value.
+- `Second` holds the second value.
 
-- **To exclude all comparison methods:** `-tags notuplecompare`
-- **To specifically enable comparison for a package (even if excluded globally):**
-  - `tuple2compare`
-  - `tuple3compare`
-  - ...
-  - `tuple32compare`
+### Triple[T0, T1, T2]
 
-#### 2. Getter Methods (`GetA`, `GetB`, etc.)
-By default, getter methods are included. If you want to exclude them globally, use the `notuplegetter` tag. If you need to explicitly re-enable them for a specific package after excluding them, use the corresponding package-specific tag.
+Represents a triple of values.
 
-- **To exclude all getter methods:** `-tags notuplegetter`
-- **To specifically enable getters for a package (even if excluded globally):**
-  - `tuple2getter`
-  - `tuple3getter`
-  - ...
-  - `tuple32getter`
+- `First`, `Second`, and `Third` hold the respective values.
 
-### Example Usage
+### Quadruple[T0, T1, T2, T3]
 
-To compile a project while excluding all comparison and getter methods to minimize the API surface:
+Represents a quadruple of values.
 
-```bash
-go build -tags "notuplecompare,notuplegetter" .
-```
+- `First`, `Second`, `Third`, and `Fourth` hold the respective values.
 
-To exclude all comparison methods and all getter but keep the getters for `tuple2`:
+### Quintuple[T0, T1, T2, T3, T4]
 
-```bash
-go build -tags "notuplecompare,notuplegetter,tuple2getter" .
-```
+Represents a quintuple of values.
+
+- `First`, `Second`, `Third`, `Fourth`, and `Fifth` hold the respective values.
+
+## Utility Functions
+
+Each tuple type includes utility functions:
+
+- `MakePair`, `NewPair`: Create new pairs.
+- `Len() int`: Returns the number of elements in the tuple.
+- `Get(int) any`: Gets an element at index i. Returns nil if out-of-bounds.
+
+Similar methods exist for `Triple`, `Quadruple`, and `Quintuple`.
+
+## Tuple Interface
+
+The `Tuple` interface defines two methods: `Len() int` and `Get(int) any`.
+`Pair`, `Triple`, `Quadruple`, and `Quintuple` all implement the `Tuple` interface.
+
