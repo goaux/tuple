@@ -1,4 +1,4 @@
-> [!INFO]
+> [!NOTE]
 > [README for v1](README.v1.md)
 
 # goaux/tuple v2
