@@ -1,7 +1,7 @@
 # goaux/tuple v2
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/goaux/tuple/v2.svg)](https://pkg.go.dev/github.com/goaux/tuple/v2)
-[![Go Report Card](https://goreportcard.com/badge/github.com/goaux/tuple/v2)](https://goreportcard.com/report/github.com/goaux/tuple/v2)
+<!-- [![Go Report Card](https://goreportcard.com/badge/github.com/goaux/tuple/v2)](https://goreportcard.com/report/github.com/goaux/tuple/v2) -->
 
 A tiny, compile‑time‑safe library that gives you a **generic tuple** type for every size from 2 up to 32 values.
 The package is split into a separate sub‑package per tuple length so you only import what you need – no unnecessary dependencies or large monolithic packages.
