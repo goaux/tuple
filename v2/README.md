@@ -6,7 +6,7 @@
 A tiny, compile‑time‑safe library that gives you a **generic tuple** type for every size from 2 up to 32 values.
 The package is split into a separate sub‑package per tuple length so you only import what you need – no unnecessary dependencies or large monolithic packages.
 
-All source files are produced by `gen-tuple`.
+All source files are produced by [`gen-tuple`](https://pkg.go.dev/github.com/goaux/tuple/v2/gen-tuple).
 
 ## Features
 
