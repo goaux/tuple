@@ -1,3 +1,6 @@
+> [!INFO]
+> [README for v1](README.v1.md)
+
 # goaux/tuple v2
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/goaux/tuple/v2.svg)](https://pkg.go.dev/github.com/goaux/tuple/v2)
