@@ -1,0 +1,4 @@
+github.com/divan/num2words v1.0.3 h1:OG4A0arFQS9N7fZ3WErD4zCtkSNN/a5k+2FuHg+pYt4=
+github.com/divan/num2words v1.0.3/go.mod h1:duNwU06A80oPNPA5fX2puj/uQBpLWMBrE/gS8kX/0BU=
+golang.org/x/sync v0.20.0 h1:e0PTpb7pjO8GAtTs2dQ6jYa5BWYlMuX047Dco/pItO4=
+golang.org/x/sync v0.20.0/go.mod h1:9xrNwdLfx4jkKbNva9FpL6vEN7evnE43NNNJQ2LF3+0=
